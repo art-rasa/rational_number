@@ -1,0 +1,33 @@
+name = "rational_number"
+version = "0.1.0"
+license = "MIT"
+author = "Arttu Räsänen"
+maintainer = "arttu.rasanen@protonmail.com"
+copyright = "2021 Arttu Räsänen"
+
+
+[library]
+source-dir="src"
+
+[dependencies]
+math = {git = "https://github.com/art-rasa/math.git"}
+
+[[test]]
+name = "rational_number_test"
+source-dir = "test"
+main = "rational_number_test.f90"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
