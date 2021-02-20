@@ -1,5 +1,5 @@
 module rational_number
-    use math
+    use math, only: gcDenom
     implicit none
     
     type rationalnumber_t
@@ -144,6 +144,28 @@ contains
     end function
     
     !  
+    !  name: ratNumSubstract
+    !  desc: Substracts two rational numbers.
+    !  @param r1: Rational number.
+    !  @param r2: Rational number.
+    !  @param simplify: Optional parameter.
+    !  @return: The difference (r1-r2) between two rational numbers.
+    !  
+    function ratNumSubstract(r1, r2, simplify) result(res)
+        type(rationalnumber_t), intent(in) :: r1, r2
+        logical, intent(in), optional :: simplify
+        type(rationalnumber_t) :: res
+        type(rationalnumber_t) :: r2_tmp
+        integer :: new_num
+        
+        r2_tmp = r2
+        new_num = ratNumGetNumerator(r2_tmp)
+        call ratNumSetNumerator(r2_tmp, -new_num)
+        
+        res = ratNumAdd(r1, r2_tmp, simplify)
+    end function
+    
+    !  
     !  name: ratNumSetNumerator
     !  desc: Modify the numerator.
     !  @param r: Rational number. Will be modified.
@@ -155,6 +177,19 @@ contains
         
         r % numerator = n
     end subroutine
+    
+    !  
+    !  name: ratNumGetNumerator
+    !  desc: Returns the numerator.
+    !  @param r: Rational number. Will not be modified.
+    !  @return: Numerator value as an integer.
+    !  
+    function ratNumGetNumerator(r) result(num)
+        type(rationalnumber_t), intent(in) :: r
+        integer :: num
+        
+        num = r % numerator
+    end function
     
     !  
     !  name: ratNumSetDenominator
@@ -180,6 +215,19 @@ contains
     end subroutine
     
     !  
+    !  name: ratNumGetDenominator
+    !  desc: Returns the denominator.
+    !  @param r: Rational number. Will not be modified.
+    !  @return: Denominator value as an integer.
+    !  
+    function ratNumGetDenominator(r) result(den)
+        type(rationalnumber_t), intent(in) :: r
+        integer :: den
+        
+        den = r % denominator
+    end function
+    
+    !  
     !  name: ratNumToReal
     !  desc: Convert the rational number to a real number.
     !  @param r: Rational number. 
@@ -188,7 +236,10 @@ contains
     function ratNumToReal(r) result(f)
         type(rationalnumber_t) , intent(in) :: r
         real :: f
-        f = real(r % numerator) / real(r % denominator)
+        f = 0.0
+        if (r % denominator > 0.0) then
+            f = real(r % numerator) / real(r % denominator)
+        end if
     end function
     
 end module

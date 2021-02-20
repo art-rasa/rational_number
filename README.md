@@ -4,14 +4,26 @@
 
 This Fortran module implements several procedures for handling rational numbers. Currently implemented are:
 
-* *rationalnumber_t*: derived data type
-* Initializing variables of `rationalnumber_t` type with given numerator and denominator values.
-* Setting numerator and denominator values of `rationalnumber_t` variables.
-* Converting a `rationalnumber_t` variable into its string representation.
-* Adding two `rationalnumber_t` variables together.
-* Equalizing two `rationalnumber_t` variables, making their denominators equal.
-* Simplifying a `rationalnumber_t` variable, reducing its numerator and denominators without affecting its value. E.g. 5/10 --> 1/2.
-* Converting a `rationalnumber_t` variable into its standard Fortran `real` value representation.
+### Data types
+
+* `rationalnumber_t`
+
+### Procedures
+
+
+| Name | Type | Description |
+| --------- | ----- | ----------- |
+| ratNumInit | function | Initializes `rationalnumber_t` variables with given numerator and denominator values. | 
+| ratNumToStr | function | Converts a `rationalnumber_t` variable into its string representation. |
+| ratNumEqualize | subroutine | Makes the denominators of two `rationalnumber_t` variables equal. |
+| ratNumSimplify | function | Simplifies a `rationalnumber_t` variable, reducing its numerator and denominator without affecting its value. E.g. 5/10 --> 1/2. |
+| ratNumAdd | function | Adds two `rationalnumber_t` variables together. |
+| ratNumSubstract | function | Substracts two `rationalnumber_t` variables. |
+| ratNumSetNumerator | subroutine | Sets the numerator value. |
+| ratNumGetNumerator | function | Returns the numerator value. |
+| ratNumSetDenominator | subroutine | Sets the denominator value. Has no effect if the new value is 0. |
+| ratNumGetDenominator | function | Returns the denominator value. |
+| ratNumToReal | function | Converts a `rationalnumber_t` variable into its standard Fortran `real` value representation. |
 
 ## Known bugs/limitations
 
