@@ -6,81 +6,87 @@ program rational_number_test
     implicit none
     
     type(rationalnumber_t) :: rNum1, rNum2, rNum3
-    integer :: tmp
+    !integer :: tmp
+    integer :: selection
     
-    rNum1 = ratNumInit(1, 1)
-    rNum2 = ratNumInit(1, 1)
+    print *, '-----program rational_number_test-----'
+    print *, 'Select feature to test:'
+    print *, '  1: testRatNumSimplify()'
+    print *, '  2: testRatNumInitFromReal()'
+    print *, '  3: ()'
+    print *, '  4: ()'
+    print *, '  5: ()'
+    print *, '  6: ()'
+    print *, '  0: test all'
+    read(*, '(i3)') selection
     
-    print *, ':::: testing rational_number module ::::'
-    print *, ' '
+    select case (selection)
+    case (1)
+        call testRatNumSimplify()
     
-    print *, 'Rational number 1'
-    write(*,'(a)',advance='no') 'Enter numerator: '
-    read(*,fmt='(i10)') tmp
-    call ratNumSetNumerator(rNum1, tmp)
-    write(*,'(a)',advance='no') 'Enter denominator: '
-    read(*,fmt='(i10)') tmp
-    call ratNumSetDenominator(rNum1, tmp)
+    case (2)
+        call testRatNumInitFromReal()
+        
+    case (0)
+        call testRatNumSimplify()
+        call testRatNumInitFromReal()
+    end select
     
-    print *, ' '
-    print *, 'Rational number 2'
-    write(*,'(a)',advance='no') 'Enter numerator: '
-    read(*,fmt='(i10)') tmp
-    call ratNumSetNumerator(rNum2, tmp)
-    write(*,'(a)',advance='no') 'Enter denominator: '
-    read(*,fmt='(i10)') tmp
-    call ratNumSetDenominator(rNum2, tmp)
+contains
     
-    print *, ' '
-    print *, 'Original rational numbers:'
-    print '(5x,a)', 'r1 = ' // ratNumToStr(rNum1) // &
-                   ', r2 = ' // ratNumToStr(rNum2)
-    print *, 'Simplified rational numbers:'
-    rNum1 = ratNumSimplify(rNum1)
-    rNum2 = ratNumSimplify(rNum2)
-    print '(5x,a)', 'r1 = ' // ratNumToStr(rNum1) // &
-                   ', r2 = ' // ratNumToStr(rNum2)
+    subroutine getRatNum(r)
+        type(rationalnumber_t), intent(inout) :: r
+        integer :: tmp
+        
+        print *, 'Enter a rational number:'
+        write(*,'(a)',advance='no') 'Enter numerator: '
+        read(*,fmt='(i10)') tmp
+        call ratNumSetNumerator(r, tmp)
+        write(*,'(a)',advance='no') 'Enter denominator: '
+        read(*,fmt='(i10)') tmp
+        call ratNumSetDenominator(r, tmp)
+    end subroutine
     
-    rNum3 = ratNumAdd(rNum1, rNum2)
+    subroutine testRatNumSimplify()
+        rNum1 = ratNumInit(1, 1)
+        rNum2 = ratNumInit(1, 1)
+        
+        print *, ':::: testRatNumSimplify() ::::'
+        print *, ' '
+        
+        call getRatNum(rNum1)
+        call getRatNum(rNum2)
+        
+        print *, ' '
+        print *, 'Original rational numbers:'
+        print '(5x,a)', 'r1 = ' // ratNumToStr(rNum1) // &
+                       ', r2 = ' // ratNumToStr(rNum2)
+        print *, 'Simplified rational numbers:'
+        rNum1 = ratNumSimplify(rNum1)
+        rNum2 = ratNumSimplify(rNum2)
+        print '(5x,a)', 'r1 = ' // ratNumToStr(rNum1) // &
+                       ', r2 = ' // ratNumToStr(rNum2)
+        
+        print *, ':::: End of test ::::'
+    end subroutine
     
-    print *, ' '
-    print *, 'Addition r1 + r2:'
-    print '(5x,a)', ratNumToStr(rNum1) // ' + ' // &
-                    ratNumToStr(rNum2) // ' = ' // &
-                    ratNumToStr(rNum3)
-    
-    rNum3 = ratNumSimplify(rNum3)
-    
-    print *, 'Simplified addition r1 + r2:'
-    print '(5x,a)', ratNumToStr(rNum1) // ' + ' // &
-                    ratNumToStr(rNum2) // ' = ' // &
-                    ratNumToStr(rNum3)
-    
-    print *, 'As Real numbers:'
-    print *, ratNumToReal(rNum1), '+', ratNumToReal(rNum2), '=', &
-             ratNumToReal(rNum3)
-    
-    rNum3 = ratNumSubstract(rNum1, rNum2)
-    
-    print *, ' '
-    print *, 'Substraction r1 - r2: '
-    print '(5x,a)', ratNumToStr(rNum1) // ' - ' // &
-                    ratNumToStr(rNum2) // ' = ' // &
-                    ratNumToStr(rNum3)
-    
-    rNum3 = ratNumSimplify(rNum3)
-    
-    print *, 'Simplified substraction r1 - r2: '
-    print '(5x,a)', ratNumToStr(rNum1) // ' - ' // &
-                    ratNumToStr(rNum2) // ' = ' // &
-                    ratNumToStr(rNum3)
-    
-    print *, 'As Real numbers:'
-    print *, ratNumToReal(rNum1), '-', ratNumToReal(rNum2), '=', &
-             ratNumToReal(rNum3)
-    
-    print *, ' '
-    print *, ':::: End of test ::::'
+    subroutine testRatNumInitFromReal()
+        real :: r
+        
+        print *, ':::: testRatNumInitFromReal() ::::'
+        print *, ' '
+        
+        r = 12.34
+        rNum1 = ratNumInitFromReal(r)
+        rNum2 = ratNumSimplify(rNum1)
+        
+        print *, ' '
+        print '(5x,a,f0.10)', 'Real number is: ', r
+        print '(5x,a)', 'Rational number is: ' // ratNumToStr(rNum1)
+        print '(5x,a)', 'Simplified number is: ' // ratNumToStr(rNum2)
+        
+        print *, ':::: End of test ::::'
+    end subroutine
     
 end program
 

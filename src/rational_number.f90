@@ -1,5 +1,5 @@
 module rational_number
-    use math, only: gcDenom
+    use math , only: gcDenom, realNumDecimals, realWholePart, realFracPart
     implicit none
     
     type rationalnumber_t
@@ -35,6 +35,31 @@ contains
             rNum % numerator = num_temp
             rNum % denominator = den_temp
         end if
+    end function
+    
+    !  
+    !  name: ratNumInitFromReal
+    !  desc: Returns a rational approximation of "realNum".
+    !  @param realNum real variable.
+    !  @return Rational representation of the real number 'realNum'.
+    !  
+    function ratNumInitFromReal(realNum) result(rNum)
+        real, intent(in) :: realNum
+        type(rationalnumber_t) :: rNum
+        integer :: numerator
+        integer :: denominator
+        integer :: n_dec
+        integer :: expo
+        real :: temp
+        
+        n_dec = realNumDecimals(realNum)
+        expo = 10 ** n_dec
+        
+        numerator = realWholePart(realNum) * expo
+        numerator = numerator + realFracPart(realNum)
+        denominator = expo
+        
+        rNum = ratNumInit(numerator, denominator)
     end function
     
     !  

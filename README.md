@@ -10,7 +10,6 @@ This Fortran module implements several procedures for handling rational numbers.
 
 ### Procedures
 
-
 | Name | Type | Description |
 | --------- | ----- | ----------- |
 | ratNumInit | function | Initializes `rationalnumber_t` variables with given numerator and denominator values. | 
