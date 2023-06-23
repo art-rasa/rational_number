@@ -12,7 +12,8 @@ This Fortran module implements several procedures for handling rational numbers.
 
 | Name | Type | Description |
 | --------- | ----- | ----------- |
-| ratNumInit | function | Initializes `rationalnumber_t` variables with given numerator and denominator values. | 
+| ratNumInit | function | Initializes a new `rationalnumber_t` variable with given numerator and denominator values. |
+| ratNumInitFromReal | function | Initializes a new `rationalnumber_t` variable from a `real` value. |
 | ratNumToStr | function | Converts a `rationalnumber_t` variable into its string representation. |
 | ratNumEqualize | subroutine | Makes the denominators of two `rationalnumber_t` variables equal. |
 | ratNumSimplify | function | Simplifies a `rationalnumber_t` variable, reducing its numerator and denominator without affecting its value. E.g. 5/10 --> 1/2. |
