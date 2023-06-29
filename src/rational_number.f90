@@ -191,6 +191,42 @@ contains
     end function
     
     !  
+    !  name: ratNumMultiply
+    !  desc: Multiplies two rational numbers.
+    !  @param r1: Rational number.
+    !  @param r2: Rational number.
+    !  @param simplify: Optional parameter.
+    !  @return: The multiplication (r1 * r2) of two rational numbers.
+    !  
+    function ratNumMultiply(r1, r2, simplify) result(res)
+        type(rationalnumber_t), intent(in) :: r1, r2
+        logical, intent(in), optional :: simplify
+        type(rationalnumber_t) :: res
+        integer :: num, den
+        type(rationalnumber_t) :: r1_eq, r2_eq
+        
+        r1_eq = r1
+        r2_eq = r2
+        
+        if (present(simplify)) then
+            if (simplify) then
+                r1_eq = ratNumSimplify(r1_eq)
+                r2_eq = ratNumSimplify(r2_eq)
+            end if
+        end if
+        
+        num = ratNumGetNumerator(r1_eq) * ratNumGetNumerator(r2_eq)
+        den = ratNumGetDenominator(r1_eq) * ratNumGetDenominator(r2_eq)
+        res = ratNumInit(num, den)
+        
+        if (present(simplify)) then
+            if (simplify) then
+                res = ratNumSimplify(res)
+            end if
+        end if
+    end function
+    
+    !  
     !  name: ratNumSetNumerator
     !  desc: Modify the numerator.
     !  @param r: Rational number. Will be modified.

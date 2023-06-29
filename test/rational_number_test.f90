@@ -13,7 +13,7 @@ program rational_number_test
     print *, 'Select feature to test:'
     print *, '  1: testRatNumSimplify()'
     print *, '  2: testRatNumInitFromReal()'
-    print *, '  3: ()'
+    print *, '  3: testRatNumMultiply()'
     print *, '  4: ()'
     print *, '  5: ()'
     print *, '  6: ()'
@@ -27,9 +27,13 @@ program rational_number_test
     case (2)
         call testRatNumInitFromReal()
         
+    case (3)
+        call testRatNumMultiply()
+        
     case (0)
         call testRatNumSimplify()
         call testRatNumInitFromReal()
+        call testRatNumMultiply()
     end select
     
 contains
@@ -79,11 +83,163 @@ contains
         r = 12.34
         rNum1 = ratNumInitFromReal(r)
         rNum2 = ratNumSimplify(rNum1)
-        
-        print *, ' '
+        print *, 'testing "12.34"'
         print '(5x,a,f0.10)', 'Real number is: ', r
         print '(5x,a)', 'Rational number is: ' // ratNumToStr(rNum1)
         print '(5x,a)', 'Simplified number is: ' // ratNumToStr(rNum2)
+        print *, ' '
+        
+        r = -15357.63
+        rNum1 = ratNumInitFromReal(r)
+        rNum2 = ratNumSimplify(rNum1)
+        print *, 'testing "-15357.63"'
+        print '(5x,a,f0.10)', 'Real number is: ', r
+        print '(5x,a)', 'Rational number is: ' // ratNumToStr(rNum1)
+        print '(5x,a)', 'Simplified number is: ' // ratNumToStr(rNum2)
+        print *, ' '
+        
+        r = -160000.002
+        rNum1 = ratNumInitFromReal(r)
+        rNum2 = ratNumSimplify(rNum1)
+        print *, 'testing "-160000.002"'
+        print '(5x,a,f0.10)', 'Real number is: ', r
+        print '(5x,a)', 'Rational number is: ' // ratNumToStr(rNum1)
+        print '(5x,a)', 'Simplified number is: ' // ratNumToStr(rNum2)
+        print *, ' '
+        
+        r = -160000.02
+        rNum1 = ratNumInitFromReal(r)
+        rNum2 = ratNumSimplify(rNum1)
+        print *, 'testing "-160000.02"'
+        print '(5x,a,f0.10)', 'Real number is: ', r
+        print '(5x,a)', 'Rational number is: ' // ratNumToStr(rNum1)
+        print '(5x,a)', 'Simplified number is: ' // ratNumToStr(rNum2)
+        print *, ' '
+        
+        r = -160000.2
+        rNum1 = ratNumInitFromReal(r)
+        rNum2 = ratNumSimplify(rNum1)
+        print *, 'testing "-160000.2"'
+        print '(5x,a,f0.10)', 'Real number is: ', r
+        print '(5x,a)', 'Rational number is: ' // ratNumToStr(rNum1)
+        print '(5x,a)', 'Simplified number is: ' // ratNumToStr(rNum2)
+        print *, ' '
+        
+        r = 445.69937
+        rNum1 = ratNumInitFromReal(r)
+        rNum2 = ratNumSimplify(rNum1)
+        print *, 'testing "445.69937"'
+        print '(5x,a,f0.10)', 'Real number is: ', r
+        print '(5x,a)', 'Rational number is: ' // ratNumToStr(rNum1)
+        print '(5x,a)', 'Simplified number is: ' // ratNumToStr(rNum2)
+        print *, ' '
+        
+        r = 545871.616
+        rNum1 = ratNumInitFromReal(r)
+        rNum2 = ratNumSimplify(rNum1)
+        print *, 'testing "545871.616"'
+        print '(5x,a,f0.10)', 'Real number is: ', r
+        print '(5x,a)', 'Rational number is: ' // ratNumToStr(rNum1)
+        print '(5x,a)', 'Simplified number is: ' // ratNumToStr(rNum2)
+        print *, ' '
+        
+        r = 313.96153
+        rNum1 = ratNumInitFromReal(r)
+        rNum2 = ratNumSimplify(rNum1)
+        print *, 'testing "313.96153"'
+        print '(5x,a,f0.10)', 'Real number is: ', r
+        print '(5x,a)', 'Rational number is: ' // ratNumToStr(rNum1)
+        print '(5x,a)', 'Simplified number is: ' // ratNumToStr(rNum2)
+        print *, ' '
+        
+        r = -86.622
+        rNum1 = ratNumInitFromReal(r)
+        rNum2 = ratNumSimplify(rNum1)
+        print *, 'testing "-86.622"'
+        print '(5x,a,f0.10)', 'Real number is: ', r
+        print '(5x,a)', 'Rational number is: ' // ratNumToStr(rNum1)
+        print '(5x,a)', 'Simplified number is: ' // ratNumToStr(rNum2)
+        print *, ' '
+        
+        r = 8.53645
+        rNum1 = ratNumInitFromReal(r)
+        rNum2 = ratNumSimplify(rNum1)
+        print *, 'testing "8.53645"'
+        print '(5x,a,f0.10)', 'Real number is: ', r
+        print '(5x,a)', 'Rational number is: ' // ratNumToStr(rNum1)
+        print '(5x,a)', 'Simplified number is: ' // ratNumToStr(rNum2)
+        print *, ' '
+        
+        print *, ':::: End of test ::::'
+    end subroutine
+    
+    subroutine testRatNumMultiply()
+        type(rationalnumber_t) :: res
+        
+        print *, ':::: testRatNumMultiply() ::::'
+        print *, ' '
+        rNum1 = ratNumInit(2, 6)
+        rNum2 = ratNumInit(3, 7)
+        res = ratNumMultiply(rNum1, rNum2)
+        print '(5x,a)', 'testing "' // ratNumToStr(rNum1) // ' * ' // ratNumToStr(rNum2) // '"'
+        print '(5x,a)', ' = ' // ratNumToStr(res)
+        print *, ' '
+        
+        rNum1 = ratNumInit(2, 6)
+        rNum2 = ratNumInit(3, 7)
+        res = ratNumMultiply(rNum1, rNum2, .true.)
+        print '(5x,a)', 'testing "' // ratNumToStr(rNum1) // ' * ' // ratNumToStr(rNum2) // '"'
+        print '(5x,a)', ' = ' // ratNumToStr(res)
+        print *, ' '
+        
+        rNum1 = ratNumInit(2142, 653)
+        rNum2 = ratNumInit(-2733, 7361)
+        res = ratNumMultiply(rNum1, rNum2, .false.)
+        print '(5x,a)', 'testing "' // ratNumToStr(rNum1) // ' * ' // ratNumToStr(rNum2) // '"'
+        print '(5x,a)', ' = ' // ratNumToStr(res)
+        print *, ' '
+        
+        rNum1 = ratNumInit(2142, 653)
+        rNum2 = ratNumInit(-2733, 7361)
+        res = ratNumMultiply(rNum1, rNum2, .true.)
+        print '(5x,a)', 'testing "' // ratNumToStr(rNum1) // ' * ' // ratNumToStr(rNum2) // '"'
+        print '(5x,a)', ' = ' // ratNumToStr(res)
+        print *, ' '
+        
+        rNum1 = ratNumInit(-2, 1)
+        rNum2 = ratNumInit(-1, 1)
+        res = ratNumMultiply(rNum1, rNum2, .false.)
+        print '(5x,a)', 'testing "' // ratNumToStr(rNum1) // ' * ' // ratNumToStr(rNum2) // '"'
+        print '(5x,a)', ' = ' // ratNumToStr(res)
+        print *, ' '
+        
+        rNum1 = ratNumInit(-54, 1)
+        rNum2 = ratNumInit(-1, 632)
+        res = ratNumMultiply(rNum1, rNum2, .true.)
+        print '(5x,a)', 'testing "' // ratNumToStr(rNum1) // ' * ' // ratNumToStr(rNum2) // '"'
+        print '(5x,a)', ' = ' // ratNumToStr(res)
+        print *, ' '
+        
+        rNum1 = ratNumInit(-632, 1)
+        rNum2 = ratNumInit(-1, 632)
+        res = ratNumMultiply(rNum1, rNum2, .true.)
+        print '(5x,a)', 'testing "' // ratNumToStr(rNum1) // ' * ' // ratNumToStr(rNum2) // '"'
+        print '(5x,a)', ' = ' // ratNumToStr(res)
+        print *, ' '
+        
+        rNum1 = ratNumInit(-11, 764)
+        rNum2 = ratNumInitFromReal(43.637)
+        res = ratNumMultiply(rNum1, rNum2, .true.)
+        print '(5x,a)', 'testing "' // ratNumToStr(rNum1) // ' * ' // ratNumToStr(rNum2) // '"'
+        print '(5x,a)', ' = ' // ratNumToStr(res)
+        print *, ' '
+        
+        rNum1 = ratNumInitFromReal(-1.05)
+        rNum2 = ratNumInitFromReal(-2.6)
+        res = ratNumMultiply(rNum1, rNum2, .true.)
+        print '(5x,a)', 'testing "' // ratNumToStr(rNum1) // ' * ' // ratNumToStr(rNum2) // '"'
+        print '(5x,a)', ' = ' // ratNumToStr(res)
+        print *, ' '
         
         print *, ':::: End of test ::::'
     end subroutine
