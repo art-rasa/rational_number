@@ -5,8 +5,6 @@ program rational_number_test
     use rational_number
     implicit none
     
-    !type(rationalnumber_t) :: rNum1, rNum2, rNum3
-    !integer :: tmp
     integer :: selection
     
     print *, '-----program rational_number_test-----'
@@ -75,6 +73,7 @@ contains
         call testRatNumInitFromReal_driver(313.96153)
         call testRatNumInitFromReal_driver(-86.622)
         call testRatNumInitFromReal_driver(8.53645)
+        call testRatNumInitFromReal_driver(2.6)
         
         print *, ':::: End of test ::::'
     end subroutine
